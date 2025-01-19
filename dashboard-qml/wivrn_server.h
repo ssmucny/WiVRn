@@ -31,6 +31,47 @@
 class IoGithubWivrnServerInterface;
 class OrgFreedesktopDBusPropertiesInterface;
 
+class headset
+{
+	Q_GADGET
+	QML_VALUE_TYPE(headset)
+	QML_ELEMENT
+	Q_PROPERTY(QString name READ name WRITE setName)
+	Q_PROPERTY(QString publicKey READ publicKey WRITE setPublicKey)
+
+	QString m_name;
+	QString m_publicKey;
+
+public:
+	headset() = default;
+	headset(const headset &) = default;
+	headset(headset &&) = default;
+	headset & operator=(const headset &) = default;
+	headset & operator=(headset &&) = default;
+	headset(QString name, QString publicKey) :
+	        m_name(name), m_publicKey(publicKey) {}
+
+	QString name() const
+	{
+		return m_name;
+	}
+
+	QString publicKey() const
+	{
+		return m_publicKey;
+	}
+
+	void setName(QString value)
+	{
+		m_name = value;
+	}
+
+	void setPublicKey(QString value)
+	{
+		m_publicKey = value;
+	}
+};
+
 class wivrn_server : public QObject
 {
 	Q_OBJECT
@@ -46,13 +87,6 @@ class wivrn_server : public QObject
 	std::unique_ptr<QProcess> setcap_process;
 
 public:
-	struct headset_key
-	{
-		QString public_key;
-		QString name;
-	};
-	using headset_keys = std::vector<headset_key>;
-
 	wivrn_server(QObject * parent = nullptr);
 	wivrn_server(const wivrn_server &) = delete;
 	wivrn_server & operator=(const wivrn_server &) = delete;
@@ -81,7 +115,7 @@ public:
 
 	// Authentication
 	Q_PROPERTY(QString pin READ pin NOTIFY pinChanged)
-	Q_PROPERTY(headset_keys knownKeys READ knownKeys NOTIFY knownKeysChanged)
+	Q_PROPERTY(QList<headset> knownKeys READ knownKeys NOTIFY knownKeysChanged)
 	Q_PROPERTY(bool pairingEnabled READ isPairingEnabled NOTIFY pairingEnabledChanged)
 	Q_PROPERTY(bool encryptionEnabled READ isEncryptionEnabled NOTIFY encryptionEnabledChanged)
 	Q_INVOKABLE void revoke_key(QString public_key);
@@ -135,7 +169,7 @@ public:
 		return m_pin;
 	}
 
-	headset_keys knownKeys() const
+	QList<headset> knownKeys() const
 	{
 		return m_knownKeys;
 	}
@@ -218,6 +252,7 @@ public:
 	QString hostname();
 
 	Q_INVOKABLE void disconnect_headset();
+	Q_INVOKABLE void copy_steam_command();
 
 private:
 	void on_server_dbus_registered();
@@ -232,7 +267,7 @@ private:
 	QString m_jsonConfiguration{};
 
 	QString m_pin{};
-	headset_keys m_knownKeys;
+	QList<headset> m_knownKeys;
 	bool m_isPairingEnabled{};
 	bool m_isEncryptionEnabled{};
 
@@ -257,7 +292,7 @@ Q_SIGNALS:
 	void jsonConfigurationChanged(QString);
 	void needMonadoVulkanLayerChanged(bool);
 	void pinChanged(QString);
-	void knownKeysChanged(headset_keys);
+	void knownKeysChanged(QList<headset>);
 	void pairingEnabledChanged(bool);
 	void encryptionEnabledChanged(bool);
 

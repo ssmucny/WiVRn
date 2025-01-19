@@ -52,6 +52,7 @@ qt_add_qml_module(wivrn-dashboard
         qml/Main.qml
         qml/Apps.qml
         qml/SettingsPage.qml
+        qml/HeadsetsPage.qml
     RESOURCES
         ../images/wivrn.svg
 )

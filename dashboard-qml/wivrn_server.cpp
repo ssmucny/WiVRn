@@ -19,13 +19,10 @@
 #include "wivrn_server.h"
 #include "gui_config.h"
 #include "magic_enum.hpp"
-// #include "utils/flatpak.h"
-// #include "utils/strings.h"
-// #include "utils/xdg_base_directory.h"
 #include "wivrn_server_dbus.h"
 #include <QApplication>
+#include <QClipboard>
 #include <QtLogging>
-// #include <fstream>
 #include <cassert>
 #include <memory>
 #include <nlohmann/json.hpp>
@@ -347,7 +344,7 @@ void wivrn_server::on_server_properties_changed(const QString & interface_name, 
 			keys >> name >> public_key;
 			keys.endStructure();
 
-			m_knownKeys.push_back(headset_key{public_key, name});
+			m_knownKeys.push_back(headset{name, public_key});
 		}
 		keys.endArray();
 
@@ -517,6 +514,11 @@ void wivrn_server::disconnect_headset()
 {
 	if (server_interface)
 		server_interface->Disconnect();
+}
+
+void wivrn_server::copy_steam_command()
+{
+	QGuiApplication::clipboard()->setText(m_steamCommand);
 }
 
 #include "moc_wivrn_server.cpp"
