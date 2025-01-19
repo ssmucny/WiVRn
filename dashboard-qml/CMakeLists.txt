@@ -2,7 +2,7 @@
 # project(kirigami-tutorial)
 
 find_package(ECM 5.115 REQUIRED NO_MODULE)
-set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
+list(APPEND CMAKE_MODULE_PATH "${ECM_MODULE_PATH}")
 
 include(KDEInstallDirs)
 include(KDECMakeSettings)
@@ -81,6 +81,7 @@ if (WIVRN_CHECK_CAPSYSNICE)
 endif()
 
 install(TARGETS wivrn-dashboard ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
+ki18n_install(${CMAKE_CURRENT_SOURCE_DIR}/../locale)
 
 # install(PROGRAMS org.kde.tutorial.desktop DESTINATION ${KDE_INSTALL_APPDIR})
 

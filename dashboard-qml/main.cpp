@@ -14,7 +14,7 @@ int main(int argc, char * argv[])
 {
 	KIconTheme::initTheme();
 	QApplication app(argc, argv);
-	KLocalizedString::setApplicationDomain("wivrn");
+	KLocalizedString::setApplicationDomain("wivrn-dashboard");
 	QApplication::setOrganizationName(QStringLiteral("WiVRn"));
 	QApplication::setOrganizationDomain(QStringLiteral("wivrn.github.io"));
 	QApplication::setApplicationName(QStringLiteral("WiVRn dashboard"));

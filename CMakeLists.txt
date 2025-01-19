@@ -194,10 +194,10 @@ endif()
 
 if (WIVRN_BUILD_CLIENT OR WIVRN_BUILD_DASHBOARD)
     find_program(RSVG_CONVERT rsvg-convert REQUIRED)
+    find_package(Gettext REQUIRED)
 endif()
 
 if (WIVRN_BUILD_CLIENT)
-    find_package(Gettext REQUIRED)
     if (WIVRN_USE_LIBKTX STREQUAL "AUTO")
         if (ANDROID)
             set(WIVRN_USE_LIBKTX ON)
