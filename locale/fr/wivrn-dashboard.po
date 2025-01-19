@@ -1,0 +1,313 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WiVRn-dashboard\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-01-20 23:17+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Guillaume Meunier <guillaume.meunier@centraliens.net>\n"
+"Language: French\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: dashboard-qml/qml/Apps.qml:9
+#, kde-format
+msgctxt "don't start an application automatically"
+msgid "None"
+msgstr "Aucune"
+
+#: dashboard-qml/qml/Apps.qml:16
+#, kde-format
+msgctxt "choose a custom application to start"
+msgid "Custom"
+msgstr "Personnalisé"
+
+#: dashboard-qml/qml/HeadsetsPage.qml:12 dashboard-qml/qml/Main.qml:264
+#, kde-format
+msgid "Headsets"
+msgstr "Casques"
+
+#: dashboard-qml/qml/HeadsetsPage.qml:50
+#, kde-format
+msgid "Remove"
+msgstr "Enlever"
+
+#: dashboard-qml/qml/HeadsetsPage.qml:65
+#, kde-format
+msgid "Pairing enabled, PIN: %1"
+msgstr "Appairage activé, PIN : %1 "
+
+#: dashboard-qml/qml/HeadsetsPage.qml:70
+#, kde-format
+msgid "Disable pairing"
+msgstr "Désactiver l'appairage"
+
+#: dashboard-qml/qml/HeadsetsPage.qml:89
+#, kde-format
+msgid "Start the WiVRn app on your headset and use the PIN: %1"
+msgstr "Démarrez l'appli WiVRn sur votre casque et utilisez le PIN : %1"
+
+#: dashboard-qml/qml/HeadsetsPage.qml:90
+#, kde-format
+msgid "Enable pairing to allow your headset to connect to this computer"
+msgstr ""
+"Activez l'appairage pour autoriser votre casque à se connecter à cet "
+"ordinateur"
+
+#: dashboard-qml/qml/HeadsetsPage.qml:94
+#, kde-format
+msgid "Enable pairing"
+msgstr "Activer l'appairage"
+
+#: dashboard-qml/qml/HeadsetsPage.qml:106
+#, kde-format
+msgctxt "go back to the home page"
+msgid "Back"
+msgstr "Retour"
+
+#: dashboard-qml/qml/HeadsetsPage.qml:114
+#, kde-format
+msgid "Pair a new headset"
+msgstr "Appairer un nouveau casque"
+
+#: dashboard-qml/qml/Main.qml:11
+#, kde-format
+msgid "WiVRn dashboard"
+msgstr "Tableau de bord de WiVRn"
+
+#: dashboard-qml/qml/Main.qml:95
+#, kde-format
+msgid "The server does not have CAP_SYS_NICE capabilities."
+msgstr "Le serveur n'a pas la capacité CAP_SYS_NICE"
+
+#: dashboard-qml/qml/Main.qml:102
+#, kde-format
+msgid "Fix it"
+msgstr "Corriger"
+
+#: dashboard-qml/qml/Main.qml:111
+#, kde-format
+msgid "The CAP_SYS_NICE capability will be used when the server is restarted."
+msgstr ""
+"La capacité CAP_SYS_NICE sera utilisée quand le serveur sera redémarré."
+
+#: dashboard-qml/qml/Main.qml:117
+#, kde-format
+msgctxt "restart the server"
+msgid "Restart now"
+msgstr "Redémarrer"
+
+#: dashboard-qml/qml/Main.qml:143
+#, kde-format
+msgctxt "whether the server is running, displayed in front of a checkbox"
+msgid "Running"
+msgstr "Démarré"
+
+#: dashboard-qml/qml/Main.qml:156
+#, kde-format
+msgctxt "whether pairing is enabled, displayed in front of a checkbox"
+msgid "Pairing"
+msgstr "Appairage"
+
+#: dashboard-qml/qml/Main.qml:168
+#, kde-format
+msgid "PIN: %1"
+msgstr "PIN : %1"
+
+#: dashboard-qml/qml/Main.qml:182
+#, kde-format
+msgctxt "automatically started application"
+msgid "Application"
+msgstr "Application"
+
+#: dashboard-qml/qml/Main.qml:204
+#, kde-format
+msgctxt "browse a file to choose the application to start"
+msgid "Browse"
+msgstr "Parcourir"
+
+#: dashboard-qml/qml/Main.qml:219
+#, kde-format
+msgid "Steam stuff"
+msgstr "Trucs de Steam"
+
+#: dashboard-qml/qml/Main.qml:225
+#, kde-format
+msgid "For Steam games, use the following command:"
+msgstr "Pour les jeux Steam, utilisez la commande suivante :"
+
+#: dashboard-qml/qml/Main.qml:245
+#, kde-format
+msgctxt "copy text to the clipboard"
+msgid "Copy"
+msgstr "Copier"
+
+#: dashboard-qml/qml/Main.qml:249
+#, kde-format
+msgid "Copied Steam launch command"
+msgstr "Commande de lancement Steam copiée"
+
+#: dashboard-qml/qml/Main.qml:271 dashboard-qml/qml/SettingsPage.qml:12
+#, kde-format
+msgid "Settings"
+msgstr "Paramètres"
+
+#: dashboard-qml/qml/SettingsPage.qml:27
+#, kde-format
+msgid "Foveation"
+msgstr "Fovéation"
+
+#: dashboard-qml/qml/SettingsPage.qml:32
+#, kde-format
+msgid ""
+"A stronger foveation makes the image sharper in the center than in the "
+"periphery and makes the decoding faster. This is better for fast paced "
+"games.\n"
+"\n"
+"A weaker foveation gives a uniform sharpness in the whole image.\n"
+"\n"
+"The recommended values are between 20% and 50% for headsets without eye "
+"tracking and between 50% and 70% for headsets with eye tracking."
+msgstr ""
+"Une fovéation plus forte rend l'image plus nette au centre qu'en périphérie "
+"et accélère le décodage. C'est un meilleur choix  pour les jeux rapides.\n"
+"Une fovéation plus faible donne une netteté uniforme sur toute l'image.\n"
+"\n"
+"Les valeurs recommandées sont entre 20% et 50% pour les casques sans suivi "
+"des yeux et entre 50% et 70% pour les casques avec suivi des yeux."
+
+#: dashboard-qml/qml/SettingsPage.qml:41
+#, kde-format
+msgctxt "automatic foveation setup"
+msgid "Automatic"
+msgstr "Automatique"
+
+#: dashboard-qml/qml/SettingsPage.qml:45
+#, kde-format
+msgctxt "manual foveation setup"
+msgid "Manual"
+msgstr "Manuel"
+
+#: dashboard-qml/qml/SettingsPage.qml:63
+#, kde-format
+msgid "%1 %"
+msgstr "%1 %"
+
+#: dashboard-qml/qml/SettingsPage.qml:67
+#, kde-format
+msgctxt "weaker foveation"
+msgid "Weaker"
+msgstr "Faible"
+
+#: dashboard-qml/qml/SettingsPage.qml:74
+#, kde-format
+msgctxt "stronger foveation"
+msgid "Stronger"
+msgstr "Fort"
+
+#: dashboard-qml/qml/SettingsPage.qml:80
+#, kde-format
+msgid "Bitrate"
+msgstr "Débit"
+
+#: dashboard-qml/qml/SettingsPage.qml:88
+#, kde-format
+msgctxt "bitrate"
+msgid "%1 Mbit/s"
+msgstr "%1 Mbit/s"
+
+#: dashboard-qml/qml/SettingsPage.qml:89
+#, kde-format
+msgctxt "removed from the bitrate string to get the numerical value"
+msgid "Mbit/s"
+msgstr ""
+
+#: dashboard-qml/qml/SettingsPage.qml:94
+#, kde-format
+msgid "Encoder configuration"
+msgstr "Configuration de l'encodeur"
+
+#: dashboard-qml/qml/SettingsPage.qml:100
+#, kde-format
+msgctxt "automatic encoder setup"
+msgid "Automatic"
+msgstr "Automatique"
+
+#: dashboard-qml/qml/SettingsPage.qml:104
+#, kde-format
+msgctxt "manual encoder setup"
+msgid "Manual"
+msgstr "Manuel"
+
+#: dashboard-qml/qml/SettingsPage.qml:109
+#, kde-format
+msgid ""
+"To add a new encoder, split an existing encoder by clicking near an edge.\n"
+"Drag an edge to resize or remove encoders."
+msgstr ""
+"Pour ajouter un encodeur, découpez un encodeur existant en cliquant près "
+"d'un bord.\n"
+"Déplacez un bord pour redimensionner ou supprimer un encodeur."
+
+#: dashboard-qml/qml/SettingsPage.qml:116
+#, kde-format
+msgctxt "encoder layout"
+msgid "Layout"
+msgstr "Disposition"
+
+#: dashboard-qml/qml/SettingsPage.qml:137
+#, kde-format
+msgid "Encoder"
+msgstr "Encodeur"
+
+#: dashboard-qml/qml/SettingsPage.qml:140
+#, kde-format
+msgctxt "automatic encoder setup"
+msgid "Auto"
+msgstr "Automatique"
+
+#: dashboard-qml/qml/SettingsPage.qml:141
+#, kde-format
+msgid "nvenc"
+msgstr "nvenc"
+
+#: dashboard-qml/qml/SettingsPage.qml:142
+#, kde-format
+msgid "vaapi"
+msgstr "vaapi"
+
+#: dashboard-qml/qml/SettingsPage.qml:143
+#, kde-format
+msgid "x264"
+msgstr "x264"
+
+#: dashboard-qml/qml/SettingsPage.qml:144
+#, kde-format
+msgid "Vulkan"
+msgstr "Vulkan"
+
+#: dashboard-qml/qml/SettingsPage.qml:168
+#, kde-format
+msgid "Codec"
+msgstr "Codec"
+
+#: dashboard-qml/qml/SettingsPage.qml:171
+#, kde-format
+msgctxt "automatic codec setup"
+msgid "Auto"
+msgstr "Automatique"
+
+#: dashboard-qml/qml/SettingsPage.qml:172
+#, kde-format
+msgid "H264"
+msgstr "H264"
+
+#: dashboard-qml/qml/SettingsPage.qml:173
+#, kde-format
+msgid "H265"
+msgstr "H265"
+
+#: dashboard-qml/qml/SettingsPage.qml:174
+#, kde-format
+msgid "AV1"
+msgstr "AV1"
