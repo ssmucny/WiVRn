@@ -103,7 +103,7 @@ Kirigami.ScrollablePage {
 		onAccepted: applicationWindow().pageStack.pop()
 
 		Controls.Button {
-			text: i18n("Back")
+			text: i18nc("go back to the home page", "Back")
 			icon.name: "go-previous"
 			Controls.DialogButtonBox.buttonRole: Controls.DialogButtonBox.AcceptRole
 		}

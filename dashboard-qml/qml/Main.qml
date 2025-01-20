@@ -114,7 +114,7 @@ Kirigami.ApplicationWindow {
                 visible: false
                 actions: [
                     Kirigami.Action {
-                        text: i18n("Restart now")
+                        text: i18nc("restart the server", "Restart now")
                         onTriggered: {
                             WivrnServer.restart_server();
                             restart_capsysnice.visible = false;
@@ -140,7 +140,7 @@ Kirigami.ApplicationWindow {
                 ColumnLayout {
                     Layout.fillWidth: true
                     Controls.Switch {
-                        text: i18n("Running")
+                        text: i18nc("whether the server is running, displayed in front of a checkbox", "Running")
                         id: switch_running
 
                         checked: true
@@ -153,7 +153,7 @@ Kirigami.ApplicationWindow {
                     }
 
                     Controls.Switch {
-                        text: i18n("Pairing")
+                        text: i18nc("whether pairing is enabled, displayed in front of a checkbox", "Pairing")
                         id: switch_pairing
                         onCheckedChanged: {
                             if (checked && !WivrnServer.pairingEnabled)
@@ -179,7 +179,7 @@ Kirigami.ApplicationWindow {
 
                 Kirigami.Heading {
                     level: 1
-                    text: i18n("Application")
+                    text: i18nc("automatically started application", "Application")
                     // Layout.alignment: Qt.AlignTop
                 }
                 ColumnLayout {
@@ -201,7 +201,7 @@ Kirigami.ApplicationWindow {
                             onTextEdited: root.save()
                         }
                         Controls.Button {
-                            text: i18n("Browse")
+                            text: i18nc("browse a file to choose the application to start", "Browse")
                             visible: app_text.visible
                             onClicked: app_browse.open()
                         }
@@ -242,7 +242,7 @@ Kirigami.ApplicationWindow {
                         }
 
                         Controls.Button {
-                            text: i18n("Copy")
+                            text: i18nc("copy text to the clipboard", "Copy")
                             icon.name: "edit-copy-symbolic"
                             onClicked: {
                                 WivrnServer.copy_steam_command()

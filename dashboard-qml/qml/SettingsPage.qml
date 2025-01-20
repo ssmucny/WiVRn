@@ -38,11 +38,11 @@ Kirigami.ScrollablePage {
                 Controls.RadioButton {
                     id: auto_foveation
                     checked: true
-                    text: i18n("Automatic")
+                    text: i18nc("automatic foveation setup", "Automatic")
                 }
                 Controls.RadioButton {
                     id: manual_foveation
-                    text: i18n("Manual")
+                    text: i18nc("manual foveation setup","Manual")
                 }
             }
 
@@ -64,14 +64,14 @@ Kirigami.ScrollablePage {
                 }
 
                 Controls.Label {
-                    text: i18n("Weaker")
+                    text: i18nc("weaker foveation", "Weaker")
                 }
                 Item {
                     // spacer item
                     Layout.fillWidth: true
                 }
                 Controls.Label {
-                    text: i18n("Stronger")
+                    text: i18nc("stronger foveation", "Stronger")
                 }
             }
 
@@ -85,8 +85,8 @@ Kirigami.ScrollablePage {
                 from: 1
                 to: 200
 
-                textFromValue: (value, locale) => i18n("%1 Mbit/s", value)
-                valueFromText: (text, locale) => Number.fromLocaleString(locale, text.replace("Mbit/s", ""))
+                textFromValue: (value, locale) => i18nc("bitrate", "%1 Mbit/s", value)
+                valueFromText: (text, locale) => Number.fromLocaleString(locale, text.replace(i18nc("removed from the bitrate string to get the numerical value", "Mbit/s"), ""))
             }
 
             Kirigami.Separator {
@@ -97,11 +97,11 @@ Kirigami.ScrollablePage {
             Controls.RadioButton {
                 id: auto_encoders
                 checked: true
-                text: i18n("Automatic")
+                text: i18nc("automatic encoder setup", "Automatic")
             }
             Controls.RadioButton {
                 id: manual_encoders
-                text: i18n("Manual")
+                text: i18nc("manual encoder setup", "Manual")
             }
 
             Controls.Label {
@@ -113,7 +113,7 @@ Kirigami.ScrollablePage {
 
             RectanglePartitionner {
                 id: partitionner
-                Kirigami.FormData.label: i18n("Layout")
+                Kirigami.FormData.label: i18nc("encoder layout", "Layout")
                 implicitWidth: 600
                 implicitHeight: 300
                 visible: manual_encoders.checked
@@ -137,11 +137,11 @@ Kirigami.ScrollablePage {
                 Kirigami.FormData.label: i18n("Encoder")
                 visible: manual_encoders.checked
                 model: [
-                    { name: "auto",   label: i18n("Auto"),   codecs: "auto"},
-                    { name: "nvenc",  label: i18n("nvenc"),  codecs: "auto,h264,h265"},
-                    { name: "vaapi",  label: i18n("vaapi"),  codecs: "auto,h264,h265,av1"},
-                    { name: "x264",   label: i18n("x264"),   codecs: "h264"},
-                    { name: "vulkan", label: i18n("Vulkan"), codecs: "h264"}
+                    { name: "auto",   label: i18nc("automatic encoder setup", "Auto"), codecs: "auto"},
+                    { name: "nvenc",  label: i18n("nvenc"),                            codecs: "auto,h264,h265"},
+                    { name: "vaapi",  label: i18n("vaapi"),                            codecs: "auto,h264,h265,av1"},
+                    { name: "x264",   label: i18n("x264"),                             codecs: "h264"},
+                    { name: "vulkan", label: i18n("Vulkan"),                           codecs: "h264"}
                 ]
                 enabled: partitionner.selected
                 textRole: "label"
@@ -168,7 +168,7 @@ Kirigami.ScrollablePage {
                 Kirigami.FormData.label: i18n("Codec")
                 visible: manual_encoders.checked
                 model: [
-                    { name: "auto", label: i18n("Auto")},
+                    { name: "auto", label: i18nc("automatic codec setup", "Auto")},
                     { name: "h264", label: i18n("H264")},
                     { name: "h265", label: i18n("H265")},
                     { name: "av1",  label: i18n("AV1")}
