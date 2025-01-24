@@ -13,9 +13,11 @@ Kirigami.ApplicationWindow {
     Settings {
         id: config
     }
+
     Apps {
         id: apps
     }
+
     Dialogs.FileDialog {
         id: app_browse
         onAccepted: {
@@ -29,6 +31,9 @@ Kirigami.ApplicationWindow {
 
     property bool server_started: WivrnServer.serverStatus == WivrnServer.Started
     property bool json_loaded: false
+    property bool prev_headset_connected: false
+    property int connected_headset_count: 0
+    property string connected_headset_serial: ""
 
     Connections {
         target: WivrnServer
@@ -74,6 +79,31 @@ Kirigami.ApplicationWindow {
         function onPairingEnabledChanged(value) {
             if (switch_pairing.checked != WivrnServer.pairingEnabled)
                 switch_pairing.checked = WivrnServer.pairingEnabled;
+        }
+
+        // function onHeadsetConnectedChanged(value) {
+        //     if (value != root.prev_headset_connected) {
+        //         root.prev_headset_connected = value;
+        //
+        //         if (value && root.pageStack.depth == 1)
+        //             root.pageStack.push(Qt.resolvedUrl("HeadsetStatsPage.qml"));
+        //     }
+        // }
+    }
+
+    Connections {
+        target: Adb
+
+        function onRowsInserted() {
+            root.connected_devices_changed();
+        }
+
+        function onRowsRemoved() {
+            root.connected_devices_changed();
+        }
+
+        function onDataChanged() {
+            root.connected_devices_changed();
         }
     }
 
@@ -123,15 +153,23 @@ Kirigami.ApplicationWindow {
                 ]
             }
 
+            Kirigami.InlineMessage {
+                Layout.fillWidth: true
+                text: i18n("ADB is not installed.")
+                type: Kirigami.MessageType.Information
+                showCloseButton: true
+                visible: !Adb.adbInstalled
+            }
+
             GridLayout {
                 columns: 2
 
-                // columnSpacing: Kirigami.Units.largeSpacing
-                // rowSpacing: Kirigami.Units.largeSpacing
                 Layout.leftMargin: Kirigami.Units.largeSpacing
                 Layout.rightMargin: Kirigami.Units.largeSpacing
                 Item {}
-                Item { Layout.fillWidth: true }
+                Item {
+                    Layout.fillWidth: true
+                }
 
                 Image {
                     source: Qt.resolvedUrl("wivrn.svg")
@@ -140,26 +178,26 @@ Kirigami.ApplicationWindow {
                 ColumnLayout {
                     Layout.fillWidth: true
                     Controls.Switch {
-                        text: i18nc("whether the server is running, displayed in front of a checkbox", "Running")
                         id: switch_running
+                        text: i18nc("whether the server is running, displayed in front of a checkbox", "Running")
 
                         checked: true
                         onCheckedChanged: {
                             if (checked && !root.server_started)
-                                WivrnServer.start_server()
+                                WivrnServer.start_server();
                             else if (!checked && root.server_started)
-                                WivrnServer.stop_server()
+                                WivrnServer.stop_server();
                         }
                     }
 
                     Controls.Switch {
-                        text: i18nc("whether pairing is enabled, displayed in front of a checkbox", "Pairing")
                         id: switch_pairing
+                        text: i18nc("whether pairing is enabled, displayed in front of a checkbox", "Pairing")
                         onCheckedChanged: {
                             if (checked && !WivrnServer.pairingEnabled)
-                                WivrnServer.enable_pairing()
+                                WivrnServer.enable_pairing();
                             else if (!checked && WivrnServer.pairingEnabled)
-                                WivrnServer.disable_pairing()
+                                WivrnServer.disable_pairing();
                         }
                         enabled: root.server_started
                     }
@@ -167,9 +205,15 @@ Kirigami.ApplicationWindow {
                     Controls.Label {
                         text: WivrnServer.pairingEnabled ? i18n("PIN: %1", WivrnServer.pin) : ""
                         wrapMode: Text.WordWrap
+                        // font.pixelSize: 20
                         Layout.fillWidth: true
                     }
 
+                    Controls.Button {
+                        text: i18n("Connect by USB")
+                        onClicked: root.connect_usb()
+                        enabled: root.server_started && Adb.adbInstalled && !WivrnServer.headsetConnected && root.connected_headset_count > 0
+                    }
                 }
 
                 Kirigami.Separator {
@@ -180,8 +224,8 @@ Kirigami.ApplicationWindow {
                 Kirigami.Heading {
                     level: 1
                     text: i18nc("automatically started application", "Application")
-                    // Layout.alignment: Qt.AlignTop
                 }
+
                 ColumnLayout {
                     RowLayout {
                         Layout.fillWidth: true
@@ -236,7 +280,7 @@ Kirigami.ApplicationWindow {
                             Layout.fillWidth: true
                             readOnly: true
                             // cursorVisible: true
-                            Controls.ToolTip.text: "toto"
+                            Controls.ToolTip.text: i18n("Paste this in the Steam launch options for the app you want to start")
                             Controls.ToolTip.visible: hovered
                             Controls.ToolTip.delay: 1000
                         }
@@ -245,8 +289,8 @@ Kirigami.ApplicationWindow {
                             text: i18nc("copy text to the clipboard", "Copy")
                             icon.name: "edit-copy-symbolic"
                             onClicked: {
-                                WivrnServer.copy_steam_command()
-                                showPassiveNotification(i18n("Copied Steam launch command"), 2000)
+                                WivrnServer.copy_steam_command();
+                                showPassiveNotification(i18n("Copied Steam launch command"), 2000);
                             }
                         }
                     }
@@ -260,20 +304,71 @@ Kirigami.ApplicationWindow {
         }
 
         actions: [
+            // Kirigami.Action {
+            //     text: i18n("Install the app")
+            //     // icon.name: "item-symbolic"
+            //     onTriggered: root.pageStack.push(Qt.resolvedUrl("ApkInstallPage.qml"))
+            //     visible: root.pageStack.depth == 1
+            //     enabled: root.server_started && Adb.adbInstalled
+            // },
+            // Kirigami.Action {
+            //     text: i18n("Statistics")
+            //     icon.name: "office-chart-line-symbolic"
+            //     onTriggered: root.pageStack.push(Qt.resolvedUrl("HeadsetStatsPage.qml"))
+            //     visible: root.pageStack.depth == 1
+            //     enabled: root.server_started && Adb.adbInstalled && WivrnServer.headsetConnected
+            // },
+            Kirigami.Action {
+                text: i18n("Disconnect")
+                icon.name: "network-disconnect-symbolic"
+                onTriggered: WivrnServer.disconnect_headset()
+                visible: root.pageStack.depth == 1
+                enabled: root.server_started && WivrnServer.headsetConnected
+            },
             Kirigami.Action {
                 text: i18n("Headsets")
                 icon.name: "item-symbolic"
                 onTriggered: root.pageStack.push(Qt.resolvedUrl("HeadsetsPage.qml"))
-
-                enabled: root.server_started && root.pageStack.depth == 1
+                visible: root.pageStack.depth == 1
+                enabled: root.server_started
             },
             Kirigami.Action {
                 text: i18n("Settings")
                 icon.name: "settings-configure-symbolic"
                 onTriggered: root.pageStack.push(Qt.resolvedUrl("SettingsPage.qml"))
-                enabled: root.server_started && root.pageStack.depth == 1
-            }
+                visible: root.pageStack.depth == 1
+                enabled: root.server_started
+            }//,
+            // Kirigami.Action {
+            //     text: i18n("Troubleshoot")
+            //     icon.name: "help-contents-symbolic"
+            //     onTriggered: root.pageStack.push(Qt.resolvedUrl("TroubleshootPage.qml"))
+            //     enabled: root.server_started && root.pageStack.depth == 1
+            // }
+
+
         ]
+    }
+
+    Component {
+        id: usb_device_component
+        Kirigami.Action {
+            property string serial
+            property string label
+
+            // icon.name: "media-playback-start"
+            text: label
+            onTriggered: Adb.startUsbConnection(serial, WivrnServer.pin)
+        }
+    }
+
+    Kirigami.MenuDialog {
+        id: select_usb_device
+
+        title: i18n("Select your headset")
+        showCloseButton: true
+
+        actions: []
     }
 
     function save() {
@@ -285,10 +380,45 @@ Kirigami.ApplicationWindow {
             new_application = apps.get(app_combobox.currentIndex).command;
 
         config.load(WivrnServer);
-        if (config.application != new_application)
-        {
+        if (config.application != new_application) {
             config.application = new_application;
             config.save(WivrnServer);
         }
+    }
+
+    function connect_usb() {
+        if (root.connected_headset_count == 1) {
+            Adb.startUsbConnection(root.connected_headset_serial, WivrnServer.pin);
+        } else {
+            select_usb_device.open();
+        }
+    }
+
+    function connected_devices_changed() {
+        var n = Adb.rowCount();
+        var nb_found = 0;
+
+        select_usb_device.actions.length = 0;
+
+        for (var i = 0; i < n; i++) {
+            var serial = Adb.data(Adb.index(i, 0), 257);
+            var isWivrnInstalled = Adb.data(Adb.index(i, 0), 258);
+            var manufacturer = Adb.data(Adb.index(i, 0), 259);
+            var model = Adb.data(Adb.index(i, 0), 260);
+
+            if (isWivrnInstalled) {
+                nb_found++;
+                root.connected_headset_serial = serial;
+
+                select_usb_device.actions.push(usb_device_component.createObject(select_usb_device, {
+                    "label": manufacturer + " " + model,
+                    "serial": serial
+                }));
+            }
+        }
+
+        root.connected_headset_count = nb_found;
+        if (nb_found != 1)
+            root.connected_headset_serial = "";
     }
 }

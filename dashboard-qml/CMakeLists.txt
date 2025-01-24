@@ -39,6 +39,7 @@ add_executable(wivrn-dashboard
     escape_string.cpp
     settings.cpp
     rectangle_partitionner.cpp
+    adb.cpp
 )
 
 set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/../dbus/io.github.wivrn.Server.xml PROPERTIES INCLUDE "${CMAKE_CURRENT_SOURCE_DIR}/wivrn_qdbus_types.h")
@@ -54,6 +55,8 @@ qt_add_qml_module(wivrn-dashboard
         qml/Apps.qml
         qml/SettingsPage.qml
         qml/HeadsetsPage.qml
+        qml/UsbConnectPage.qml
+        qml/HeadsetStatsPage.qml
     RESOURCES
         ../images/wivrn.svg
 )
